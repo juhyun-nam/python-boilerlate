@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "boilerplate"
+version = "0.1.0"
+description = ""
+authors = ["Juhyun Nam <thenothinis@gmail.com>"]
+
+[tool.poe.tasks]
+_black-check = "black --check ."
+_isort-check = "isort --check-only ."
+formatting-check = ["_black-check", "_isort-check"]
+
+_black = "black ."
+_isort = "isort ."
+format = ["_black", "_isort"]
+
+_pylint = "pylint boilerplate tests"
+lint = ["_pylint"]
+
+unittest = "pytest -vv -x"
+coverage = "pytest --cov=boilerplate"
+typecheck = "mypy ."
+checks = ["formatting-check", "lint", "typecheck", "unittest", "coverage"]
+
+clean = "rm -rf .coverage .mypy_cache .pytest_cache **/__pycache__"
+
+[tool.coverage.run]
+branch = true
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+incremental = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+coverage = "^6.4.1"
+pytest-cov = "^3.0.0"
+black = "^22.3.0"
+isort = "^5.10.1"
+pylint = "^2.14.3"
+mypy = "^0.961"
+poethepoet = "^0.14.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

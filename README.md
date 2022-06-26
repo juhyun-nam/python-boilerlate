@@ -1,0 +1,7 @@
+# python-boilerplate
+
+## Poetry
+
+```console
+curl -sSL https://install.python-poetry.org | python3 -
+```
